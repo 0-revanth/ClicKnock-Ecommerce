@@ -1,0 +1,48 @@
+"""
+URL configuration for ECom project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/5.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+from loginreg.views import login,register,seller_register
+from core.views import *
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',login,name='login'),
+    path('login/',login,name='login'),
+    path('register/',register,name='register'),
+    path('seller_register/',seller_register,name='seller_register'),
+    path('home/',Home,name='Home'),
+    path('cart/',Cart,name='Cart'),
+    path('addproduct/',Addproduct,name='Addproduct'),
+    path('uprofile/',UserProfile,name='uprofile'),
+    path('list/',List,name='List'),
+    path('update_item/',updateItem,name='update_item'),
+    path('checkout/',CheckOut,name='checkout'),
+    path('product/<int:product_id>/', ProductDetail, name='product_detail'),
+
+    
+
+
+
+]
+
+
+urlpatterns +=  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image:linear-gradient(45deg,white,white,green,white);
+      background-repeat: no-repeat;
+      background-size: cover;
+      
+    }
+
+
+
+
+
+    .Reg-container {
+      background: rgba(255, 255, 255, 0.24);
+      border-radius: 10px;
+      padding: 30px;
+      width: 300px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 500px;
+    }
+
+    h2 {
+      color: #fff;
+    }
+
+    input[type="text"], input[type="email"],input[type="phone"],input[type="password"]
+    {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: 0.3s ease;
+    }
+
+    input[type="text"]:focus, input[type="email"]:focus,input[type="phone"]:focus,input[type="password"]:focus {
+      border-color: #4CAF50;
+      outline: none;
+      transform: translateY(-5px);
+    }
+
+    .btn-Reg {
+      width: 70%;
+      padding: 12px;
+      margin: 5px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-Reg:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .login {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 12px;
+      background-color: #4CAF50;
+      box-shadow: 8px 5px 10px black;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .login:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    label{
+      color: white;
+      font-weight:500;
+      font-size: 1.1rem;
+    }
+    .gender{
+      margin: 15px;
+      text-shadow:0 0 2px black;
+    }
+    .name{
+      width: 95%;
+      display: flex;
+
+
+    }
+    input[type=radio]{
+      accent-color: green;
+      height: 18px;
+      width: 18px;
+    }
+    .logo a img{
+      position: absolute;
+      height:12vh;
+      top:0.1px;
+      left:10px;
+      
+      
+ 
+
+    }
+    .clicknock-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 350px;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+      z-index: -1;
+      opacity: 0.07;
+    }
+  </style>
+</head>
+<body>
+  <div class="clicknock-text">CK</div>
+  <div class="logo"><a href=""><img src="{% static 'img/logosymb.png' %}" alt="Cliknock Logo"></div>
+  <div class="login"><a href="{% url 'login' %}" style="text-decoration: none;color: white;">Login>></a></div>
+  <div class="Reg-container">
+    <h2>Seller Register</h2>
+    <form method="POST" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <div>
+        {% for msg in messages %}
+            <p style="color: rgb(255, 0, 0); text-shadow: 5px 0 5px rgb(77, 255, 0); font-size: 1.05rem;">
+              {{ msg }}
+            </p> 
+        {% endfor %}
+      </div>
+      
+      
+      <div class="name" >
+      <input type="text" name="first_name" placeholder="First name" required style="margin: 5px; margin-left: 20px;">
+      <input type="text" name="last_name" placeholder="Last name" required style="margin: 5px;">
+      </div>
+      <input type="email" name="email" placeholder="Email"  id="email" required>
+      <input type="phone" name="phone" placeholder="PhoneNumber" id="phone" required>
+  <br>
+      <div class="gender">
+     <label for="Male"> Male</label><input type="radio" id="Male" value="Male" name="gender" required>
+     <label for="female"> Female</label><input type="radio" id="female" value="female" name="gender" required>
+      <label for="other"> Others</label><input type="radio" id="other" value="others" name="gender" required><br>
+    </div>
+      <input type="password" name= "password1" placeholder="Enter Password" id="password" required>
+      <input type="password" name= "password" placeholder="Re-Enter Password" id="repassword" required><br>
+      <button type="submit" class="btn-Reg" >Register</button>
+    </form>
+    <br><br>
+     <div class="SellerReg">
+      <a href="{% url 'register' %}" style="text-decoration: none;color: #4CAF50;text-decoration: underline;">User Registration</a>
+    </div>
+
+    <script>
+      function validateForm() {
+          var email = document.getElementById("email").value;
+          var phone = document.getElementById("phone").value;
+          var password = document.getElementById("password").value;
+          var repassword = document.getElementById("repassword").value;
+          var firstName = document.getElementsByName("first_name")[0].value;
+  
+          var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+          var phonePattern = /^[0-9]{10}$/;
+          var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+          var firstNamePattern = /^[A-Za-z][A-Za-z0-9\s]*$/; // Ensures first name starts with a letter
+  
+          // Validate first name
+          if (!firstNamePattern.test(firstName)) {
+              alert("First name must start with a letter.");
+              return false;
+          }
+  
+          // Validate email
+          if (!emailPattern.test(email)) {
+              alert("Please enter a valid email address.");
+              return false;
+          }
+  
+          // Validate phone number
+          if (!phonePattern.test(phone)) {
+              alert("Phone number must be 10 digits.");
+              return false;
+          }
+  
+          // Validate password (at least 8 characters, including a number)
+          if (!passwordPattern.test(password)) {
+              alert("Password must be at least 8 characters long and include at least one number.");
+              return false;
+          }
+  
+          // Validate password match
+          if (password !== repassword) {
+              alert("Passwords do not match.");
+              return false;
+          }
+  
+          return true;
+      }
+  </script>
+  
+
+</body>
+</html>

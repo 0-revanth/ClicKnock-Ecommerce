@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image:linear-gradient(45deg,white,white,green,white);
+      background-repeat: no-repeat;
+      background-size: cover;
+      
+    }
+
+
+
+
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.24);
+      border-radius: 10px;
+      padding: 30px;
+      width: 300px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 500px;
+    }
+
+    h2 {
+      color: #fff;
+    }
+
+    input[type="username"], input[type="password"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      box-shadow: 2px 2px 10px black;
+      transition: 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #4CAF50;
+      outline: none;
+      transform: translateY(-5px);
+    }
+
+    .btn-login {
+      width: 70%;
+      padding: 12px;
+      margin: 5px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      box-shadow: 2px 2px 10px black;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-login:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .social-btn-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .social-btn {
+      width: 48%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      box-shadow: 2px 2px 10px black;
+      cursor: pointer;
+    }
+
+    .google-btn { background-color: #db4437; color: white; width: 100%; margin-top: 10px; }
+    .facebook-btn { background-color: #3b5998; color: white; }
+    .linkedin-btn { background-color: #0077b5; color: white; }
+    .social-btn:hover { opacity: 0.8; }
+
+    .forgot-password {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .or-container {
+      margin: 20px 0;
+      font-size: 14px;
+      color: rgb(20, 232, 13);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .Reg {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 12px;
+      background-color: #4CAF50;
+      box-shadow: 8px 5px 10px black;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .Reg:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    .logo a img{
+      position: absolute;
+      height:12vh;
+      top:0.1px;
+      left:10px;
+      
+      
+ 
+
+    }
+    .clicknock-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 350px;
+      font-weight: bold;
+      color: rgb(0, 0, 0);
+      z-index: -1;
+      opacity: 0.07;
+    }
+  </style>
+</head>
+<body>
+  <div class="clicknock-text">CK</div>
+  <div class="logo"><a href=""><img src="{% static 'img/logosymb.png' %}" alt="Cliknock Logo"></div>
+  <div class="Reg"><a href="{% url 'register' %}" style="text-decoration: none;color: white;">Register>></a></div>
+  <div class="login-container">
+    <h2>Login</h2>
+    <div>
+      {% for message in messages %}
+          <p style="color: rgb(255, 0, 0); text-shadow: 5px 0 5px rgb(50, 230, 14); font-size: 1.05rem;">
+            {{ message }}
+          </p> 
+      {% endfor %}
+    </div>
+    <form method="POST">
+      {% csrf_token %}
+      <input type="username" placeholder="Email OR PhoneNumber" name="username" id="username" required>
+      <input type="password" placeholder="Password" id="password" name="password" required>
+      <button type="submit" class="btn-login">Log In</button>
+    </form>
+    <a href="#" class="forgot-password">Forgot Password?</a>
+    <div class="or-container"><span><hr></span></div>
+    <div class="social-btn-container">
+      <button class="social-btn facebook-btn">Login with Facebook</button>
+      <button class="social-btn linkedin-btn">Login with LinkedIn</button>
+    </div>
+    <button class="social-btn google-btn">Login with Google</button>
+    <div>
+      {% for msg in messages %}
+        {% if "success" in msg.tags %}
+          <script>
+            alert("{{ msg }}");
+          </script>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
