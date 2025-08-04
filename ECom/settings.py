@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@9g7)142ni=w1je$9b^7cl9*1ae(tii=@a_3%uj2-v+w942dbx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['clicknock-ecommerce.onrender.com',]
 
 
 # Application definition
