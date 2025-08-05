@@ -5,6 +5,8 @@ from loginreg.models import *
 from django.contrib import messages
 from django.http import JsonResponse
 import json
+from django.contrib.auth import logout as auth_logout
+from django.db.models import Sum, F
 
 
 # Create your views here.
@@ -199,3 +201,55 @@ def ProductDetail(request, product_id):
         return render(request, 'product.html', context)
     except Product.DoesNotExist:
         return redirect('Home')
+
+
+
+def SellerProfile(request, *args, **kwargs):
+    if request.session.get('user_type') != 'seller' or 'seller_id' not in request.session:
+        return redirect('login')  # Redirect if not logged in as seller
+
+    try:
+        # Get seller object
+        seller_user = seller.objects.get(id=request.session['seller_id'])
+
+        # Get seller's store address
+        try:
+            store_address = StoreAddress.objects.get(seller=seller_user)
+        except StoreAddress.DoesNotExist:
+            store_address = None  # Handle gracefully if not set
+
+        # Get active listings
+        active_listings = Product.objects.filter(SellerID=seller_user.SellerID)
+        active_listings_count = active_listings.count()
+
+        # Get related orders for seller's products
+        orders = Order.objects.filter(orderitem__Product__SellerID=seller_user.SellerID).distinct()
+
+        # Calculate total sales: sum of (DiscountPrice * Quantity) for all seller's order items
+        order_items = OrderItem.objects.filter(Product__SellerID=seller_user.SellerID)
+        total_sales = order_items.aggregate(total=Sum(F('Quantity') * F('Product__DiscountPrice')))['total'] or 0
+
+        # Pending orders
+        pending_orders_count = orders.filter(Complete=False).count()
+
+        context = {
+            'user': seller_user,
+            'store_address': store_address,
+            'total_sales': round(total_sales, 2),
+            'active_listings': active_listings_count,
+            'pending_orders': pending_orders_count,
+        }
+
+        return render(request, 'sprofile.html', context)
+
+    except seller.DoesNotExist:
+        return redirect('login')
+
+
+
+
+
+def logout_view(request):
+    auth_logout(request)  # Clears Django's session auth
+    request.session.flush()  # Clears all session data
+    return redirect('Home')  # Replace 'login' with your actual login page name

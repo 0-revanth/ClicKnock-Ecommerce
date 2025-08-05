@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from loginreg.models import users
+from loginreg.models import users,seller
 
 
 CATEGORY_CHOICES = (
@@ -61,3 +61,14 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.Address
+    
+class StoreAddress(models.Model):
+    seller = models.OneToOneField(seller, on_delete=models.CASCADE)
+    StoreName = models.CharField(max_length=200, null=True, blank=True)
+    Address = models.TextField(null=True, blank=True)
+    City = models.CharField(max_length=100, null=True, blank=True)
+    State = models.CharField(max_length=100, null=True, blank=True)
+    ZipCode = models.CharField(max_length=10, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.StoreName} - {self.City}, {self.State}"

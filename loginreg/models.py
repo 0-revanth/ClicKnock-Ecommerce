@@ -20,6 +20,8 @@ class seller(models.Model):
     Gender = models.CharField(max_length=120 ,blank=True,null=False)
     Password = models.CharField(max_length=200,null=True,blank=True)
     UserType=models.CharField(default='S',max_length=1)
+    SellerID = models.CharField(max_length=50, unique=True, null=True, blank=True)
+
 
     def __str__(self):
         return self.Email

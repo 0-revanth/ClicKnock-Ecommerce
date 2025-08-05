@@ -202,9 +202,8 @@
         <button class="button delete-btn">Delete Account</button>
       </form>
 
-      <form method="post">
-        {% csrf_token %}
-        <button class="button logout-btn">Logout</button>
+      <form method="get" action="/logout/">
+        <button class="button logout-btn">Log Out</button>
       </form>
     </div>
   </div>

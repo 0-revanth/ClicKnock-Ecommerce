@@ -21,7 +21,7 @@
         {% if request.session.user_type == 'customer' %}
             <a href="{% url 'uprofile' %}"><i class="fa-solid fa-user"></i>Profile</a>
         {% elif request.session.user_type == 'seller' %}
-            <a href="#"><i class="fas fa-store"></i> Seller</a>
+            <a href="{% url 'sprofile' %}"><i class="fas fa-store"></i> Seller</a>
         {% else %}
             <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
         {% endif %}

@@ -80,43 +80,42 @@ def register(request,*args,**kwargs):
 
 
 def seller_register(request,*args,**kwargs):
-
-    if request.method=='POST':
+    if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        gender=request.POST.get('gender')
-        password=request.POST.get('password')
+        gender = request.POST.get('gender')
+        password = request.POST.get('password')
         
         if seller.objects.filter(Email=email).exists():
             messages.error(request, "Email already exists")
             return redirect('register') 
 
-        
         if seller.objects.filter(PhoneNumber=phone).exists():  
             messages.error(request, "Phone number already exists")
             return redirect('register')
 
         try:
-            
-            Seller= seller.objects.create(
+            seller_id_value = phone + "@ck"
+
+            Seller = seller.objects.create(
                 FirstName=first_name,
                 LastName=last_name,
                 Email=email,
                 PhoneNumber=phone,
                 Gender=gender,
-                Password=password
+                Password=password,
+                SellerID=seller_id_value  # ✅ assigned here
             )
             Seller.save()
-            messages.success(request,"Successfully Registered")
+            messages.success(request, "Successfully Registered")
             return redirect('login')
             
         except:
-            messages.error(request,"Error Occured,Try again")
+            messages.error(request, "Error Occurred, Try again")
     
-
-    return render(request,"sellerreg.html",{})
+    return render(request, "sellerreg.html", {})
 
 
 
