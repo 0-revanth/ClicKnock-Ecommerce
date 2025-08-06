@@ -32,14 +32,28 @@ Cliknock aims to provide a lightweight, scalable, and beginner-friendly eCommerc
 
 📁 How to Run Locally
 bash
+
 Copy
+
 Edit
+
 git clone https://github.com/your-username/cliknock.git
+
 cd cliknock
+
 python -m venv venv
+
 source venv/bin/activate   # or venv\Scripts\activate on Windows
+
 pip install -r requirements.txt
+
 python manage.py migrate
+
 python manage.py runserver
 
+
 Visit http://127.0.0.1:8000 to explore Cliknock locally.
+
+
+Author:
+O.Revanth raju
