@@ -60,16 +60,13 @@
       background-color: #dc3545;
       color: #fff;
     }
-
     .nav-btn.logout:hover {
       background-color: #c82333;
     }
-
     .nav-btn.delete {
       background-color: #6c757d;
       color: #fff;
     }
-
     .nav-btn.delete:hover {
       background-color: #5a6268;
     }
@@ -93,7 +90,6 @@
       text-align: center;
       gap: 0.5vw;
     }
-
     .profile-header img {
       width: 200px;
       height: 200px;
@@ -101,13 +97,11 @@
       border: 5px solid var(--primary);
       object-fit: cover;
     }
-
     .profile-header h2 {
       color: #2e7d32;
       margin: 0;
       font-size: 3vw;
     }
-
     .button {
       padding: 0.5vw 1vw;
       background-color: var(--primary);
@@ -118,19 +112,8 @@
       margin-top: 0.5vw;
       font-size: 1vw;
     }
-
     .button:hover {
       background-color: var(--primary-hover);
-    }
-
-    .store-info {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-
-    .store-info h3 {
-      color: #4CAF50;
-      margin-bottom: 0.5rem;
     }
 
     .dashboard-cards {
@@ -139,7 +122,6 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .card {
       background: var(--card-bg);
       border-radius: 1rem;
@@ -150,26 +132,16 @@
       max-width: 300px;
       text-align: center;
     }
-
     .card-title {
       font-size: 1.2rem;
       margin-bottom: 1rem;
       color: var(--header-bg);
       font-weight: 600;
     }
-
     .card-value {
       font-size: 2.5rem;
       font-weight: bold;
       color: var(--primary);
-    }
-
-    .actions {
-      margin-top: 3rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
     }
 
     .btn {
@@ -182,7 +154,6 @@
       cursor: pointer;
       transition: background 0.2s ease;
     }
-
     .btn:hover {
       background: var(--primary-hover);
     }
@@ -192,14 +163,10 @@
         flex-direction: column;
         align-items: flex-start;
       }
-
       .navbar-right {
         margin-top: 0.5rem;
       }
-
-      .seller-profile,
-      .dashboard-cards,
-      .actions {
+      .dashboard-cards {
         flex-direction: column;
         align-items: center;
         text-align: center;
@@ -217,8 +184,8 @@
   </header>
 
   <div class="container">
-    <!-- Profile Header Centered -->
-     <div class="profile-header">
+    <!-- Profile Header -->
+    <div class="profile-header">
       <img src="https://via.placeholder.com/150" alt="User Photo">
       <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
       <p><strong>Email: </strong>{{ user.Email }}</p>
@@ -227,22 +194,30 @@
       <button class="button">Edit Profile</button>
     </div>
 
-      <!-- Store Address Section -->
-      <div class="store-info">
-        <h3>Store Information</h3>
-        <p><strong>Store Name:</strong> {{ store_address.StoreName }}</p>
-        <p><strong>Address:</strong> {{ store_address.Address }}</p>
-        <p><strong>City:</strong> {{ store_address.City }}</p>
-        <p><strong>State:</strong> {{ store_address.State }}</p>
-        <p><strong>Zip Code:</strong> {{ store_address.ZipCode }}</p>
+    <!-- Store Address Card -->
+    <section class="dashboard-cards" style="margin-top: 2rem;">
+      <div class="card" style="max-width: 500px; text-align: left;">
+        <div class="card-title">Store Address</div>
+        {% if store_address %}
+          <p><strong>Store Name:</strong> {{ store_address.StoreName }}</p>
+          <p><strong>Address:</strong> {{ store_address.Address }}</p>
+          <p><strong>City:</strong> {{ store_address.City }}</p>
+          <p><strong>State:</strong> {{ store_address.State }}</p>
+          <p><strong>Zip Code:</strong> {{ store_address.ZipCode }}</p>
+        {% else %}
+          <p>No store address set yet.</p>
+        {% endif %}
+      <button class="btn" style="margin-top: 1rem;" onclick="location.href='#'"> 
+          Change Address
+        </button>
       </div>
-    </div>
+    </section>
 
     <!-- Dashboard Summary -->
-    <section class="dashboard-cards">
+    <section class="dashboard-cards" style="margin-top: 2rem;">
       <div class="card">
         <div class="card-title">Total Sales</div>
-        <div class="card-value">${{ total_sales }}</div>
+        <div class="card-value">₹{{ total_sales }}</div>
       </div>
       <div class="card">
         <div class="card-title">Active Listings</div>
@@ -255,12 +230,14 @@
     </section>
 
     <!-- Main Actions -->
-    <section class="actions">
-      <button class="btn">Add New Product</button>
-      <button class="btn">View Orders</button>
-      <button class="btn">Manage Listings</button>
+    <section class="dashboard-cards" style="margin-top: 2rem;">
+      <div class="card">
+        <div class="card-title">Quick Actions</div>
+        <button class="btn" onclick="location.href='/add-product/'">Add New Product</button>
+        <button class="btn" style="margin-top: 0.5rem;" onclick="location.href='/orders/'">View Orders</button>
+        <button class="btn" style="margin-top: 0.5rem;" onclick="location.href='/manage-listings/'">Manage Listings</button>
+      </div>
     </section>
   </div>
-  <br><br><br>
 </body>
 </html>

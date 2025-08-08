@@ -263,7 +263,9 @@
 <section class="products">
     <h2>Featured Products</h2>
     <div class="category-section">
-        <h3>Electronics <a href="#" class="see-all-btn">See All</a></h3>
+        <h3>{{ category_name }}
+            <a href="{% url 'List' %}?category={{ product.Category }}" class="see-all-btn">See All</a>
+        </h3>
         <div class="product-grid">
             {% for item in related_products %}
                 <div class="product-card">
@@ -272,19 +274,20 @@
                     <p class="price">₹{{ item.DiscountPrice }}</p>
                     <p class="rating">
                         {% for i in "12345" %}
-                            {% if forloop.counter <= item.Rating %}
-                                ⭐
-                            {% endif %}
+                            {% if forloop.counter <= item.Rating %}⭐{% endif %}
                         {% endfor %}
                     </p>
                     <a href="{% url 'product_detail' item.id %}">
                         <button class="buy-btn">View</button>
                     </a>
                 </div>
+            {% empty %}
+                <p>No related products found.</p>
             {% endfor %}
         </div>
     </div>
 </section>
+
 
 
  {% include "footer.html" %}

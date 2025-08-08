@@ -147,8 +147,23 @@ def UserProfile(request, *args, **kwargs):
 
 
 
-def List(request,*args,**kwargs):
-    return render(request,'list.html',{})
+def List(request, *args, **kwargs):
+    category_code = request.GET.get('category')  # Example: 'E', 'F', 'HK', etc.
+    
+    if category_code:
+        products = Product.objects.filter(Category=category_code)
+        category_name = dict(CATEGORY_CHOICES).get(category_code, "All Products")
+    else:
+        products = Product.objects.all()
+        category_name = "All Products"
+
+    context = {
+        'products': products,
+        'category_name': category_name
+    }
+    return render(request, 'list.html', context)
+
+
 
 
 
@@ -192,11 +207,16 @@ def CheckOut(request,*args,**kwargs):
 def ProductDetail(request, product_id):
     try:
         product = Product.objects.get(id=product_id)
-        related_products = Product.objects.filter(Category=product.Category).exclude(id=product.id)[:6]
+        related_products = Product.objects.filter(
+            Category=product.Category
+        ).exclude(id=product.id)[:6]
+
+        category_name = dict(CATEGORY_CHOICES).get(product.Category, "Products")
 
         context = {
             'product': product,
             'related_products': related_products,
+            'category_name': category_name
         }
         return render(request, 'product.html', context)
     except Product.DoesNotExist:

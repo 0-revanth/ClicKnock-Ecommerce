@@ -13,7 +13,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-             margin-top: 80px;
+            margin-top: 90px;
             padding: 0;
             background-color: #daf5cd;
             color: #333;
@@ -101,70 +101,33 @@
         </nav>
     </header>
 
-    <h2 class="page-title">All Electronics</h2>
+     </div>
+        </div>
+       <h2 class="page-title">All {{ category_name }}</h2>
 
-    <div class="product-container">
-        <div class="product-card">
-            <img src="mivi.png" alt="Laptop">
-            <div class="product-info">
-                <h4>High-Performance Laptop</h4>
-                <p class="product-description">Sleek and powerful laptop perfect for work, gaming, and creativity.</p>
-                <p class="specs">Intel i7, 16GB RAM, 512GB SSD, 15.6" FHD Display</p>
-                <p class="price">$999.99</p>
-                <p class="rating">⭐⭐⭐⭐⭐</p>
+<div class="product-container">
+    {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none; color:inherit;">
+            <div class="product-card">
+                <img src="{{ product.ImageURL }}" alt="{{ product.Name }}">
+                <div class="product-info">
+                    <h4>{{ product.Name }}</h4>
+                    <p class="product-description">{{ product.Specs }}</p>
+                    <p class="price">₹{{ product.Price }}</p>
+                    <p class="rating">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.Rating %}⭐{% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="product-card">
-            <img src="smartphone.jpg" alt="Smartphone">
-            <div class="product-info">
-                <h4>Latest Smartphone</h4>
-                <p class="product-description">Cutting-edge mobile experience with stunning design and speed.</p>
-                <p class="specs">Snapdragon 8 Gen 2, 8GB RAM, 128GB Storage, AMOLED Display</p>
-                <p class="price">$799.99</p>
-                <p class="rating">⭐⭐⭐⭐</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="headphones.jpg" alt="Headphones">
-            <div class="product-info">
-                <h4>Wireless Headphones</h4>
-                <p class="product-description">Experience immersive sound and noise cancellation wire-free.</p>
-                <p class="specs">Bluetooth 5.2, 30hr Battery, ANC, Fast Charging</p>
-                <p class="price">$199.99</p>
-                <p class="rating">⭐⭐⭐⭐⭐</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="camera.jpg" alt="Camera">
-            <div class="product-info">
-                <h4>Digital Camera</h4>
-                <p class="product-description">Capture high-resolution photos and 4K videos with ease.</p>
-                <p class="specs">24MP, 4K Video, WiFi, Touchscreen, Interchangeable Lens</p>
-                <p class="price">$499.99</p>
-                <p class="rating">⭐⭐⭐⭐</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="smartwatch.jpg" alt="Smartwatch">
-            <div class="product-info">
-                <h4>Smartwatch</h4>
-                <p class="product-description">Stay connected and track your health with style.</p>
-                <p class="specs">Heart Rate Monitor, GPS, AMOLED Display, Water Resistant</p>
-                <p class="price">$299.99</p>
-                <p class="rating">⭐⭐⭐⭐⭐</p>
-            </div>
-        </div>
-        <div class="product-card">
-            <img src="speaker.jpg" alt="Speaker">
-            <div class="product-info">
-                <h4>Bluetooth Speaker</h4>
-                <p class="product-description">Portable speaker with powerful bass and crisp audio.</p>
-                <p class="specs">20W Output, IPX7 Waterproof, 10hr Playtime</p>
-                <p class="price">$99.99</p>
-                <p class="rating">⭐⭐⭐</p>
-            </div>
-        </div>
-    </div>
+        </a>
+    {% empty %}
+        <p>No products found in this category.</p>
+    {% endfor %}
+</div>
+
+
 
     <footer>
       {% include "footer.html" %}
