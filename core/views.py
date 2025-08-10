@@ -1,4 +1,3 @@
-from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from .models import *
 from loginreg.models import *
@@ -7,6 +6,11 @@ from django.http import JsonResponse
 import json
 from django.contrib.auth import logout as auth_logout
 from django.db.models import Sum, F
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+import os
+
+
 
 
 # Create your views here.
@@ -264,7 +268,65 @@ def SellerProfile(request, *args, **kwargs):
 
     except seller.DoesNotExist:
         return redirect('login')
+    
 
+
+
+
+
+def edit_user_profile(request):
+    if request.session.get('user_type') != 'customer' or 'user_id' not in request.session:
+        return redirect('login')
+
+    user_obj = get_object_or_404(users, id=request.session['user_id'])
+
+    if request.method == "POST":
+        user_obj.FirstName = request.POST.get('FirstName', user_obj.FirstName)
+        user_obj.LastName = request.POST.get('LastName', user_obj.LastName)
+        user_obj.Gender = request.POST.get('Gender', user_obj.Gender)
+        if 'profile_picture' in request.FILES:
+    # delete old file if exists
+            if user_obj.profile_picture and os.path.isfile(user_obj.profile_picture.path):
+                os.remove(user_obj.profile_picture.path)
+                user_obj.profile_picture = request.FILES['profile_picture']
+
+        # Email & PhoneNumber remain read-only
+        user_obj.save()
+
+        return render(request, 'editprofile.html', {
+        'customer': user_obj,
+        'success': True
+        })
+
+
+    return render(request, 'editprofile.html', {'customer': user_obj})
+
+
+def edit_seller_profile(request):
+    if request.session.get('user_type') != 'seller' or 'seller_id' not in request.session:
+        return redirect('login')
+
+    seller_obj = get_object_or_404(seller, id=request.session['seller_id'])
+
+    if request.method == "POST":
+        seller_obj.FirstName = request.POST.get('FirstName', seller_obj.FirstName)
+        seller_obj.LastName = request.POST.get('LastName', seller_obj.LastName)
+        seller_obj.Gender = request.POST.get('Gender', seller_obj.Gender)
+        if 'profile_picture' in request.FILES:
+    # delete old file if exists
+            if seller_obj.profile_picture and os.path.isfile(seller_obj.profile_picture.path):
+                os.remove(seller_obj.profile_picture.path)
+                seller_obj.profile_picture = request.FILES['profile_picture']
+
+        # Email & PhoneNumber remain read-only
+        seller_obj.save()
+
+        return render(request, 'editprofile.html', {
+        'customer': seller_obj,
+        'success': True
+        })
+
+    return render(request, 'editprofile.html', {'customer': seller_obj})
 
 
 

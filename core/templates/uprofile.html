@@ -39,7 +39,7 @@
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      border: 5px solid #28a745;
+      border: 2px solid #28a745;
       object-fit: cover;
     }
 
@@ -146,11 +146,16 @@
 
     <!-- Profile Header Centered -->
     <div class="profile-header">
-      <img src="https://via.placeholder.com/150" alt="User Photo">
+      {% if user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+      {% else %}
+    <img src="https://via.placeholder.com/150" alt="Default Photo">
+      {% endif %}
       <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
       <p>{{ user.Email }}</p>
       <p>{{ user.PhoneNumber }}</p>
-      <button class="button">Edit Profile</button>
+      <button class="button" onclick="location.href='{% url 'edit_user_profile' %}'">Edit Profile</button>
+
     </div>
 
     <div class="divider"></div>
@@ -207,5 +212,13 @@
       </form>
     </div>
   </div>
+  {% if success %}
+<script>
+    window.onload = function() {
+        alert("Profile updated successfully!");
+    };
+</script>
+{% endif %}
+
 </body>
 </html>

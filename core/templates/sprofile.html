@@ -94,7 +94,7 @@
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      border: 5px solid var(--primary);
+      border: 2px solid var(--primary);
       object-fit: cover;
     }
     .profile-header h2 {
@@ -186,12 +186,18 @@
   <div class="container">
     <!-- Profile Header -->
     <div class="profile-header">
-      <img src="https://via.placeholder.com/150" alt="User Photo">
+      {% if seller.profile_picture %}
+    <img src="{{ seller.profile_picture.url }}" alt="Profile Picture">
+      {% else %}
+    <img src="https://via.placeholder.com/150" alt="Default Photo">
+      {% endif %}
+
       <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
       <p><strong>Email: </strong>{{ user.Email }}</p>
       <p><strong>Phone: </strong>{{ user.PhoneNumber }}</p>
       <p><strong>Seller ID:</strong> {{ user.SellerID }}</p>
-      <button class="button">Edit Profile</button>
+      <button class="button" onclick="location.href='{% url 'edit_seller_profile' %}'">Edit Profile</button>
+
     </div>
 
     <!-- Store Address Card -->
@@ -239,5 +245,14 @@
       </div>
     </section>
   </div>
+
+  {% if success %}
+<script>
+    window.onload = function() {
+        alert("Profile updated successfully!");
+    };
+</script>
+{% endif %}
+
 </body>
 </html>
