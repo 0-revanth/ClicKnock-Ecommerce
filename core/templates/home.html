@@ -125,6 +125,8 @@
         margin-top: 8px;
         font-weight: bold;
         color: #333;
+        text-decoration: none;
+        
     }
 
     
@@ -346,28 +348,39 @@
             <h2>Shop by Category</h2>
             <div class="category-grid">
                 <div class="category-item">
-                    <img src="{% static 'img/pngwing.com.png' %}" alt="Electronics">
-                    <p>Electronics</p>
+                   <a href="{% url 'List' %}?category=E">
+                     <img src="{% static 'img/pngwing.com.png' %}" alt="Electronics">
+                    <p>Electronics</p></a>
                 </div>
                 <div class="category-item">
+                    <a href="{% url 'List' %}?category=F">
                     <img src="{% static 'img/fashion.jpg' %}" alt="Fashion">
                     <p>Fashion</p>
+                    </a>
                 </div>
                 <div class="category-item">
+                    <a href="{% url 'List' %}?category=HK">
                     <img src="{% static 'img/kitchen.jpg' %}" alt="Home & Kitchen">
                     <p>Home & Kitchen</p>
+                    </a>
                 </div>
                 <div class="category-item">
+                    <a href="{% url 'List' %}?category=BT">
                     <img src="{% static 'img/beauty.jpg' %}" alt="Beauty">
                     <p>Beauty</p>
+                    </a>
                 </div>
                 <div class="category-item">
+                    <a href="{% url 'List' %}?category=S">
                     <img src="{% static 'img/sports.png' %}" alt="Sports">
                     <p>Sports</p>
+                    </a>
                 </div>
                 <div class="category-item">
+                    <a href="{% url 'List' %}?category=BK">
                     <img src="{% static 'img/books.png' %}" alt="Books">
                     <p>Books</p>
+                    </a>
                 </div>
             </div>
             
@@ -394,9 +407,9 @@
                     <br>
                     <div class="card-btns">
                     
-                    <button data-product={{product.id}} data-action="add" class="cart-btn">Cart</button>
+                    <button data-product={{product.id}} data-action="add" class="cart-btn">Add to Cart</button>
                     <a href="{% url 'product_detail' product.id %}">
-                        <button class="buy-btn">Buy Now</button>
+                        <button class="buy-btn">View</button>
                     </a>
 
                     </div>

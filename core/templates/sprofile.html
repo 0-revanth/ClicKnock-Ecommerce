@@ -75,7 +75,6 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       max-width: 100vw;
       width: 100%;
       padding: 100px 2.5vw 2.5vh;
@@ -84,23 +83,16 @@
     }
 
     .profile-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
-      gap: 0.5vw;
-    }
-    .profile-header img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      border: 2px solid var(--primary);
-      object-fit: cover;
+      padding-bottom: 1rem;
     }
     .profile-header h2 {
       color: #2e7d32;
       margin: 0;
-      font-size: 3vw;
+      font-size: 2rem;
+    }
+    .profile-header p {
+      margin: 0.3rem 0;
     }
     .button {
       padding: 0.5vw 1vw;
@@ -186,18 +178,11 @@
   <div class="container">
     <!-- Profile Header -->
     <div class="profile-header">
-      {% if seller.profile_picture %}
-    <img src="{{ seller.profile_picture.url }}" alt="Profile Picture">
-      {% else %}
-    <img src="https://via.placeholder.com/150" alt="Default Photo">
-      {% endif %}
-
       <h2>{{ user.FirstName }} {{ user.LastName }}</h2>
       <p><strong>Email: </strong>{{ user.Email }}</p>
       <p><strong>Phone: </strong>{{ user.PhoneNumber }}</p>
       <p><strong>Seller ID:</strong> {{ user.SellerID }}</p>
       <button class="button" onclick="location.href='{% url 'edit_seller_profile' %}'">Edit Profile</button>
-
     </div>
 
     <!-- Store Address Card -->
@@ -213,7 +198,7 @@
         {% else %}
           <p>No store address set yet.</p>
         {% endif %}
-      <button class="btn" style="margin-top: 1rem;" onclick="location.href='#'"> 
+        <button class="btn" style="margin-top: 1rem;" onclick="location.href='#'"> 
           Change Address
         </button>
       </div>
@@ -239,7 +224,7 @@
     <section class="dashboard-cards" style="margin-top: 2rem;">
       <div class="card">
         <div class="card-title">Quick Actions</div>
-        <button class="btn" onclick="location.href='/add-product/'">Add New Product</button>
+        <button class="btn" onclick="location.href='/addproduct/'">Add New Product</button>
         <button class="btn" style="margin-top: 0.5rem;" onclick="location.href='/orders/'">View Orders</button>
         <button class="btn" style="margin-top: 0.5rem;" onclick="location.href='/manage-listings/'">Manage Listings</button>
       </div>
@@ -253,6 +238,5 @@
     };
 </script>
 {% endif %}
-
 </body>
 </html>

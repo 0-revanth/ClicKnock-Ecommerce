@@ -36,7 +36,13 @@
         <div class="form-group"><label>Email (Primary)</label><input type="text" name="Email" value="{{ customer.Email }}" readonly></div>
         <div class="form-group"><label>Phone Number (Primary)</label><input type="text" name="PhoneNumber" value="{{ customer.PhoneNumber }}" readonly></div>
         <div class="form-group"><label>Gender</label><input type="text" name="Gender" value="{{ customer.Gender }}"></div>
-        <div class="form-group"><label>Profile Picture</label><input type="file" name="profile_picture"></div>
+        {% if request.session.user_type == 'customer' %}
+        <div class="form-group">
+            <label>Profile Picture</label>
+            <input type="file" name="profile_picture">
+        </div>
+        {% endif %}
+
 
         <button type="submit"><i class="fa-solid fa-save"></i> Save Changes</button>
     </form>

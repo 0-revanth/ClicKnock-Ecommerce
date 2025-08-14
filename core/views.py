@@ -312,21 +312,15 @@ def edit_seller_profile(request):
         seller_obj.FirstName = request.POST.get('FirstName', seller_obj.FirstName)
         seller_obj.LastName = request.POST.get('LastName', seller_obj.LastName)
         seller_obj.Gender = request.POST.get('Gender', seller_obj.Gender)
-        if 'profile_picture' in request.FILES:
-    # delete old file if exists
-            if seller_obj.profile_picture and os.path.isfile(seller_obj.profile_picture.path):
-                os.remove(seller_obj.profile_picture.path)
-                seller_obj.profile_picture = request.FILES['profile_picture']
-
-        # Email & PhoneNumber remain read-only
         seller_obj.save()
 
         return render(request, 'editprofile.html', {
-        'customer': seller_obj,
-        'success': True
+            'customer': seller_obj,
+            'success': True
         })
 
     return render(request, 'editprofile.html', {'customer': seller_obj})
+
 
 
 
