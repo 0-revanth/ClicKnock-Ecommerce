@@ -324,6 +324,59 @@ def edit_seller_profile(request):
 
 
 
+def change_user_address(request):
+    if request.session.get('user_type') != 'customer' or 'user_id' not in request.session:
+        return redirect('login')
+
+    customer = get_object_or_404(users, id=request.session['user_id'])
+    address, created = ShippingAddress.objects.get_or_create(users=customer)
+
+    if request.method == "POST":
+        address.Address = request.POST.get('Address', address.Address)
+        address.City = request.POST.get('City', address.City)
+        address.State = request.POST.get('State', address.State)
+        address.Zip = request.POST.get('Zip', address.Zip)
+        address.save()
+        return render(request, 'ChangeAdress.html', {
+            'address': address,
+            'user_type': 'customer',
+            'success': True
+        })
+
+    return render(request, 'ChangeAdress.html', {
+        'address': address,
+        'user_type': 'customer'
+    })
+
+
+
+def change_store_address(request):
+    if request.session.get('user_type') != 'seller' or 'seller_id' not in request.session:
+        return redirect('login')
+
+    seller_user = get_object_or_404(seller, id=request.session['seller_id'])
+    store_address, created = StoreAddress.objects.get_or_create(seller=seller_user)
+
+    if request.method == "POST":
+        store_address.StoreName = request.POST.get('StoreName', store_address.StoreName)
+        store_address.Address = request.POST.get('Address', store_address.Address)
+        store_address.City = request.POST.get('City', store_address.City)
+        store_address.State = request.POST.get('State', store_address.State)
+        store_address.ZipCode = request.POST.get('ZipCode', store_address.ZipCode)
+        store_address.save()
+        return render(request, 'ChangeAdress.html', {
+            'address': store_address,
+            'user_type': 'seller',
+            'success': True
+        })
+
+    return render(request, 'ChangeAdress.html', {
+        'address': store_address,
+        'user_type': 'seller'
+    })
+
+
+
 
 def logout_view(request):
     auth_logout(request)  # Clears Django's session auth

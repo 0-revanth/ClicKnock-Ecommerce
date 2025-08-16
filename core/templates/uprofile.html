@@ -195,7 +195,9 @@
           {% endif %}
         </p>
         <div class="address-action-buttons">
-          <button class="button">Change Address</button>
+          <button class="button" onclick="location.href='{% url 'change_user_address' %}'">
+             Change Address
+          </button>
         </div>
       </div>
     </div>

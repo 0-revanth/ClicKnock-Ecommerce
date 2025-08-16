@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from loginreg.models import users,seller
+from loginreg.models import *
 
 
 CATEGORY_CHOICES = (

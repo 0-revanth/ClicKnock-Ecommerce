@@ -198,9 +198,10 @@
         {% else %}
           <p>No store address set yet.</p>
         {% endif %}
-        <button class="btn" style="margin-top: 1rem;" onclick="location.href='#'"> 
-          Change Address
-        </button>
+        <button class="btn" style="margin-top: 1rem;" onclick="location.href='{% url 'change_store_address' %}'"> 
+  Change Address
+</button>
+
       </div>
     </section>
 

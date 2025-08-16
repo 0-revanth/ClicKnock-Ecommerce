@@ -83,6 +83,7 @@
         width: 90%;
         border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        text-decoration: none;
     }
 
     .categories h2 {
@@ -97,6 +98,7 @@
         gap: 1.5rem;
         justify-items: center;
         padding: 1rem;
+        text-decoration: none;
     }
 
     .category-item {
@@ -107,11 +109,13 @@
         text-align: center;
         cursor: pointer;
         transition: transform 0.3s, box-shadow 0.3s;
+        text-decoration: none;
     }
 
     .category-item:hover {
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-transform: none;
     }
 
     .category-item img {
@@ -119,6 +123,7 @@
         height: 150px;
         object-fit: contain;
         border-radius: 10px;
+        text-decoration: none;
     }
 
     .category-item p {
@@ -348,36 +353,36 @@
             <h2>Shop by Category</h2>
             <div class="category-grid">
                 <div class="category-item">
-                   <a href="{% url 'List' %}?category=E">
+                   <a href="{% url 'List' %}?category=E" style="text-decoration: none;">
                      <img src="{% static 'img/pngwing.com.png' %}" alt="Electronics">
-                    <p>Electronics</p></a>
+                    <p style="text-decoration:none;">Electronics</p></a>
                 </div>
                 <div class="category-item">
-                    <a href="{% url 'List' %}?category=F">
+                    <a href="{% url 'List' %}?category=F" style="text-decoration: none;">
                     <img src="{% static 'img/fashion.jpg' %}" alt="Fashion">
                     <p>Fashion</p>
                     </a>
                 </div>
                 <div class="category-item">
-                    <a href="{% url 'List' %}?category=HK">
+                    <a href="{% url 'List' %}?category=HK" style="text-decoration: none;">
                     <img src="{% static 'img/kitchen.jpg' %}" alt="Home & Kitchen">
                     <p>Home & Kitchen</p>
                     </a>
                 </div>
                 <div class="category-item">
-                    <a href="{% url 'List' %}?category=BT">
+                    <a href="{% url 'List' %}?category=BT" style="text-decoration: none;">
                     <img src="{% static 'img/beauty.jpg' %}" alt="Beauty">
                     <p>Beauty</p>
                     </a>
                 </div>
                 <div class="category-item">
-                    <a href="{% url 'List' %}?category=S">
+                    <a href="{% url 'List' %}?category=S" style="text-decoration: none;">
                     <img src="{% static 'img/sports.png' %}" alt="Sports">
                     <p>Sports</p>
                     </a>
                 </div>
                 <div class="category-item">
-                    <a href="{% url 'List' %}?category=BK">
+                    <a href="{% url 'List' %}?category=BK" style="text-decoration: none;">
                     <img src="{% static 'img/books.png' %}" alt="Books">
                     <p>Books</p>
                     </a>
